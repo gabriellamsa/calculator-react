@@ -1,6 +1,10 @@
 # Calculator App - React + Vite
 
-### In progress..
+It's design was inspired by the design of the IOS calculator! 
+
+also used the:
+react-number-format
+
 
 ----
 
