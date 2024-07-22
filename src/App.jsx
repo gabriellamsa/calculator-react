@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { NumericFormat } from 'react-number-format';
-import './App.css'
+import './App.css';
 
 function App() {
   const [preState, setPreState] = useState("");
@@ -14,12 +14,11 @@ function App() {
 
     if (total) {
       setPreState("");
+      setCurState(e.target.innerText);
+      setTotal(false);
+    } else {
+      setCurState((pre) => (pre ? pre + e.target.innerText : e.target.innerText));
     }
-
-    curState
-      ? setCurState((pre) => pre + e.target.innerText)
-      : setCurState(e.target.innerText);
-    setTotal(false);
   };
 
   useEffect(() => {
@@ -29,6 +28,7 @@ function App() {
   useEffect(() => {
     setInput("0");
   }, []);
+
   const operatorType = (e) => {
     setTotal(false);
     setOperator(e.target.innerText);
@@ -47,10 +47,9 @@ function App() {
     }
     let cal;
     switch (operator) {
-      case "/":
+      case "÷":
         cal = String(parseFloat(preState) / parseFloat(curState));
         break;
-
       case "+":
         cal = String(parseFloat(preState) + parseFloat(curState));
         break;
@@ -63,7 +62,7 @@ function App() {
       default:
         return;
     }
-    setInput("");
+    setInput(cal);
     setPreState(cal);
     setCurState("");
   };
@@ -87,29 +86,29 @@ function App() {
     setCurState("");
     setInput("0");
   };
-  
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="screen">
-         {input !== "" || input === "0" ? (
-            <NumericFormat 
+          {input !== "" || input === "0" ? (
+            <NumericFormat
               value={input}
               displayType={'text'}
               thousandSeparator={true}
             />
-         ) : (
-          <NumericFormat
-            value={preState}
-            displayType={'text'}
-            thousandSeparator={true}
-          />
-         )}
+          ) : (
+            <NumericFormat
+              value={preState}
+              displayType={'text'}
+              thousandSeparator={true}
+            />
+          )}
         </div>
         <div className='btn light-gray' onClick={reset}>AC</div>
-        <div className='btn light-gray' onClick={percent}>%</div>
         <div className='btn light-gray' onClick={minusPlus}>+/-</div>
-        <div className='btn orange' onClick={operatorType}>/</div>
+        <div className='btn light-gray' onClick={percent}>%</div>
+        <div className='btn orange' onClick={operatorType}>÷</div>
         <div className='btn' onClick={inputNum}>7</div>
         <div className='btn' onClick={inputNum}>8</div>
         <div className='btn' onClick={inputNum}>9</div>
@@ -117,17 +116,17 @@ function App() {
         <div className='btn' onClick={inputNum}>4</div>
         <div className='btn' onClick={inputNum}>5</div>
         <div className='btn' onClick={inputNum}>6</div>
-        <div className='btn orange' onClick={operatorType}>+</div>
+        <div className='btn orange' onClick={operatorType}>-</div>
         <div className='btn' onClick={inputNum}>1</div>
         <div className='btn' onClick={inputNum}>2</div>
         <div className='btn' onClick={inputNum}>3</div>
-        <div className='btn orange' onClick={operatorType}>-</div>
+        <div className='btn orange' onClick={operatorType}>+</div>
         <div className='btn zero' onClick={inputNum}>0</div>
         <div className='btn' onClick={inputNum}>.</div>
-        <div className='btn' onClick={equals}> = </div>
+        <div className='btn' onClick={equals}>=</div>
       </div>
     </div>
   );
 }
 
-export default App
+export default App;
